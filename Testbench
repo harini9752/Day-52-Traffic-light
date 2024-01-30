@@ -1,0 +1,25 @@
+module tb_traffic_light_controller;
+
+  reg clk;
+  wire green, yellow, red;
+
+  traffic_light_controller uut (
+    .clk(clk),
+    .green(green),
+    .yellow(yellow),
+    .red(red)
+  );
+
+  initial begin
+    // Initialize test
+    clk = 0;
+
+    // Test the traffic light sequence for 20 clock cycles
+    repeat (20) begin
+      #5 clk = ~clk;
+    end
+
+    $finish;
+  end
+
+endmodule
