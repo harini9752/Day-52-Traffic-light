@@ -1,0 +1,41 @@
+module traffic_light_controller (
+  input wire clk,
+  output reg green,
+  output reg yellow,
+  output reg red
+);
+
+  reg [1:0] state;
+
+  // State encoding
+  localparam GREEN_STATE = 2'b00;
+  localparam YELLOW_STATE = 2'b01;
+  localparam RED_STATE = 2'b10;
+
+  always @(posedge clk) begin
+    // State transition logic
+    case (state)
+      GREEN_STATE: begin
+        green = 1;
+        yellow = 0;
+        red = 0;
+        state <= YELLOW_STATE;
+      end
+
+      YELLOW_STATE: begin
+        green = 0;
+        yellow = 1;
+        red = 0;
+        state <= RED_STATE;
+      end
+
+      RED_STATE: begin
+        green = 0;
+        yellow = 0;
+        red = 1;
+        state <= GREEN_STATE;
+      end
+    endcase
+  end
+
+endmodule
